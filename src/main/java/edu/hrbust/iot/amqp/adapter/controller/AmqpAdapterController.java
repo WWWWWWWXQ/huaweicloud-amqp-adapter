@@ -18,6 +18,6 @@ public class AmqpAdapterController {
     @RequestMapping(value = "/receive", method = RequestMethod.GET)
     public String receive(){
         amqpAdapterService.receive();
-        return null;
+        return "test";
     }
 }
