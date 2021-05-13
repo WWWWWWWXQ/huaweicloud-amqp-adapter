@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.adapter.utils;
+package edu.hrbust.iot.amqp.adapter.listener;
 
 import org.apache.qpid.jms.JmsConnectionListener;
 import org.apache.qpid.jms.message.JmsInboundMessageDispatch;
@@ -63,4 +63,5 @@ public class QpidConnectionListener implements JmsConnectionListener {
     public void onProducerClosed(MessageProducer producer, Throwable cause){
         System.out.println("MessageProducer, producer=" + producer + ", cause =" + cause);
     }
+
 }
