@@ -1,9 +1,27 @@
 package edu.hrbust.iot.amqp.web.entity;
 
-import edu.hrbust.iot.amqp.web.utils.common.BaseVO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
-public class AmqpRecordVO extends BaseVO {
-    private String record;
+@AllArgsConstructor
+@NoArgsConstructor
+public class AmqpRecordVO implements Serializable {
+
+    private Long id;
+    private Date createdTime;
+    private String userName;
+
+    /**
+     * body.services
+     */
+    private String serviceId;
+    private Date eventTime;
+    private int luminance;
+    private int newinttest;
+    private String newstr;
 }

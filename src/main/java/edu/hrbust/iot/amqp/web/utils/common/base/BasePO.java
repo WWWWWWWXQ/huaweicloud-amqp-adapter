@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.web.utils.common;
+package edu.hrbust.iot.amqp.web.utils.common.base;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +18,7 @@ public class BasePO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    protected String username;
+    protected String userName;
     protected Date createdTime;
 
 }

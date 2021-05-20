@@ -1,32 +1,39 @@
 package edu.hrbust.iot.amqp.web;
 
+import com.alibaba.fastjson.JSON;
 import edu.hrbust.iot.amqp.HuaWeiCloudAmqpAdapterApplication;
-import edu.hrbust.iot.amqp.adapter.AmqpAdapter;
+import edu.hrbust.iot.amqp.adapter.base.AmqpAdapter;
+import edu.hrbust.iot.amqp.adapter.QpidConsumer;
+import edu.hrbust.iot.amqp.adapter.entity.Bear;
+import edu.hrbust.iot.amqp.web.service.AmqpAdapterService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 @SpringBootTest(classes = HuaWeiCloudAmqpAdapterApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 class HuaweiCloudAmqpAdapterApplicationTests {
 
     @Resource
-    AmqpAdapter amqpAdapter;
+    QpidConsumer qpidConsumer;
 
-    @Test
-    public void pureTest(){
-        try {
-            amqpAdapter.pureReceive();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
+//    @Test
+//    public void pureTest(){
+//        System.out.println("pureTest");
+//        qpidConsumer.receive();
+//    }
+//
+//    @Test
+//    public void parseTest(){
+//        String s = "{\"resource\":\"device.property\",\"event\":\"report\",\"event_time\":\"20210518T025047Z\",\"notify_data\":{\"header\":{\"app_id\":\"e6c196d40df84846bacbd9573dabb685\",\"device_id\":\"5fd6df9937f2a30303b55693_863434047705329\",\"node_id\":\"863434047705329\",\"product_id\":\"5fd6df9937f2a30303b55693\",\"gateway_id\":\"5fd6df9937f2a30303b55693_863434047705329\"},\"body\":{\"services\":[{\"service_id\":\"Sensor\",\"properties\":{\"luminance\":215,\"newinttest\":520,\"newstr\":\"ONOK\"},\"event_time\":\"20210518T025047Z\"}]}}}";
+//        Bear bear = JSON.parseObject(s, Bear.class);
+//        System.out.println(s);
+//        System.out.println(bear);
+//        qpidConsumer.save(bear);
+//    }
 
 }

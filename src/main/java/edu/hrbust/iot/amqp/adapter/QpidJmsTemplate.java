@@ -1,58 +1,64 @@
 package edu.hrbust.iot.amqp.adapter;
 
 import com.alibaba.fastjson.JSON;
-import org.apache.qpid.jms.JmsConnectionFactory;
-import org.apache.qpid.jms.transports.TransportOptions;
-import org.apache.qpid.jms.transports.TransportSupport;
+import edu.hrbust.iot.amqp.adapter.base.AmqpAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 
 import javax.jms.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
- * 使用JmsTemplate进行消息接收
- * JmsTemplate 在 AmqpConfig中配置生成
+ *
+ *
  */
 @Component
 public class QpidJmsTemplate {
 
-    @Autowired
-    private AmqpConfig amqpConfig;
+    private static final long TIME_OUT = 5000;
 
     @Autowired
-    private JmsTemplate jmsTemplate;
+    private AmqpAdapter amqpAdapter;
 
-    public Message testReceive() throws Exception {
-
-//        //连接凭证接入键值。
-//        //UserName组装方法，请参见文档：AMQP客户端接入说明。
-//        //时间戳
-//        long timeStamp = System.currentTimeMillis();
-//        String userName = "accessKey=" + amqpConfig.getAccessKey() + "|timestamp=" + timeStamp;
-//
-//        JmsConnectionFactory factory = new JmsConnectionFactory(userName, amqpConfig.getPassword(), amqpConfig.getConnectionUrl());
-//
-//        //信任服务端
-//        TransportOptions to = new TransportOptions();
-//        to.setTrustAll(true);
-//        factory.setSslContext(TransportSupport.createJdkSslContext(to));
-//
-//        jmsTemplate.setConnectionFactory(factory);
-
-        String destinationName = amqpConfig.getTopicName();
-        return doReceive(destinationName);
+    public List<Message> receive(){
+        try {
+            return amqpAdapter.receiveMessageList(TIME_OUT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
     }
 
-    private Message doReceive(String destinationName){
-        return jmsTemplate.receive(destinationName);
+    public List<String> receiveAndConvertToString(){
+        List<Message> messages = receive();
+        if (messages.isEmpty()){
+            return Collections.emptyList();
+        }
+        return messages.stream().map(this::receiveMessageBody).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    public <T> T receiveJsonAndConvert(String destinationName, Class<T> targetClass) throws JMSException {
-        Message message = doReceive(destinationName);
-        return JSON.parseObject(message.getBody(String.class), targetClass);
+    public String receiveMessageBody(Message message){
+        String messageBody = null;
+        try {
+            messageBody =  message.getBody(String.class);
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+        return messageBody;
+    }
+
+    public <T> List<T> receiveAndConvertToJson( Class<T> targetClass) {
+        List<String> messages =  receiveAndConvertToString();
+        if (messages.isEmpty()){
+            return Collections.emptyList();
+        }
+//        System.out.println("接收到消息:");
+//        messages.forEach(System.out::println);
+        return messages.stream().map(message -> JSON.parseObject(message, targetClass)).collect(Collectors.toList());
     }
 
 }

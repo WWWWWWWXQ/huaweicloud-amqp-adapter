@@ -1,5 +1,6 @@
-package edu.hrbust.iot.amqp.adapter.listener;
+package edu.hrbust.iot.amqp.adapter.base;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.qpid.jms.JmsConnectionListener;
 import org.apache.qpid.jms.message.JmsInboundMessageDispatch;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import java.net.URI;
 
+@Slf4j
 @Component
 public class QpidConnectionListener implements JmsConnectionListener {
 
@@ -17,8 +19,9 @@ public class QpidConnectionListener implements JmsConnectionListener {
      */
     @Override
     public void onConnectionEstablished(URI remoteURI){
-        System.out.println("onConnectionEstablished, remoteUri:" + remoteURI);
+        log.info("连接建立: {}", remoteURI );
     }
+
 
     /**
      * 尝试过最大重试次数之后，最终连接失败。
@@ -46,7 +49,7 @@ public class QpidConnectionListener implements JmsConnectionListener {
 
     @Override
     public void onInboundMessage(JmsInboundMessageDispatch envelope){
-        System.out.println("onInboundMessage, " + envelope);
+//        log.info("接收到:[{}]", envelope );
     }
 
     @Override

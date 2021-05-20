@@ -1,8 +1,9 @@
-package edu.hrbust.iot.amqp.web.utils.common;
+package edu.hrbust.iot.amqp.web.utils.common.base;
 
 import com.sun.istack.Nullable;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
+import sun.reflect.generics.reflectiveObjects.TypeVariableImpl;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -37,7 +38,10 @@ public interface BaseConverter<SOURCE, TARGET>{
         try {
             Type type = this.getClass().getGenericInterfaces()[0];
             ParameterizedType parameterizedType = (ParameterizedType) type;
-            Class tempClass = (Class) parameterizedType.getActualTypeArguments()[0];
+            Type actualTypeArgument = parameterizedType.getActualTypeArguments()[1];
+
+            Class tempClass = (Class) actualTypeArgument;
+
             target = (TARGET) tempClass.getConstructor().newInstance();
         }catch (Exception e){
             e.printStackTrace();
