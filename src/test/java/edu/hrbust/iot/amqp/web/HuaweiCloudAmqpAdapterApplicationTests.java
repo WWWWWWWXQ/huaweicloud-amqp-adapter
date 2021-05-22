@@ -1,18 +1,15 @@
 package edu.hrbust.iot.amqp.web;
 
-import com.alibaba.fastjson.JSON;
 import edu.hrbust.iot.amqp.HuaWeiCloudAmqpAdapterApplication;
-import edu.hrbust.iot.amqp.adapter.base.AmqpAdapter;
+import edu.hrbust.iot.amqp.adapter.QpidJmsTemplate;
 import edu.hrbust.iot.amqp.adapter.QpidConsumer;
-import edu.hrbust.iot.amqp.adapter.entity.Bear;
-import edu.hrbust.iot.amqp.web.service.AmqpAdapterService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest(classes = HuaWeiCloudAmqpAdapterApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -20,6 +17,15 @@ class HuaweiCloudAmqpAdapterApplicationTests {
 
     @Resource
     QpidConsumer qpidConsumer;
+
+    @Resource
+    QpidJmsTemplate qpidJmsTemplate;
+
+    @Test
+    public void pureStringTest(){
+        System.out.println("pureStringTest");
+        qpidConsumer.receiveHealthData();
+    }
 
 //    @Test
 //    public void pureTest(){
