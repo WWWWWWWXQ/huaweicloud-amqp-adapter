@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.adapter.entity;
+package edu.hrbust.iot.amqp.adapter.entity.common;
 
 import lombok.Data;
 

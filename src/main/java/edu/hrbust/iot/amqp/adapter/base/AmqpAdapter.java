@@ -76,7 +76,7 @@ public class AmqpAdapter {
             // 创建 Receiver Link
             MessageConsumer consumer = session.createConsumer(queue);
             try {
-                log.info("{}, 开始接收消息", LocalDateTime.now());
+                log.info("[开始接收消息], {},", LocalDateTime.now());
                 Message message = consumer.receive(timeOut);
                 while (message != null) {
                     poccess(message, messages);
@@ -93,7 +93,7 @@ public class AmqpAdapter {
             e.printStackTrace();
         } finally {
             connection.close();
-            log.info("{}, 消息接收结束, connection是否关闭:{}", LocalDateTime.now(), ((JmsConnection) connection).isClosed());
+            log.info("[消息接收结束], {}, connection是否关闭:{}", LocalDateTime.now(), ((JmsConnection) connection).isClosed());
         }
         return messages;
     }
