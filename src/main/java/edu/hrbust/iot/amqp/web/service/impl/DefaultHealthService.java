@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
@@ -29,7 +30,6 @@ public class DefaultHealthService implements HealthService {
 
     @Autowired
     private HealthPDConverter converter;
-
 
     @Override
     public PageDTO<HealthDataDTO> queryPage(AmqpQuery amqpQuery) {
@@ -60,6 +60,12 @@ public class DefaultHealthService implements HealthService {
         healthDataDTO.setId(null);
         healthDataDTO.setCreatedTime(new Date());
         repository.save(converter.toSource(healthDataDTO));
+    }
+
+    @Override
+    public List<HealthDataDTO> queryAll() {
+        List<HealthData> all = repository.findAll();
+        return converter.toTargetList(all);
     }
 
 

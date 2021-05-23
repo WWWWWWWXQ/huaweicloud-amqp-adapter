@@ -9,10 +9,13 @@ import edu.hrbust.iot.amqp.web.utils.common.page.Page;
 import edu.hrbust.iot.amqp.web.utils.common.page.PageDTO;
 import edu.hrbust.iot.amqp.web.utils.converter.HealthDVConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+/**
+ * Health控制类
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/health")
@@ -23,6 +26,12 @@ public class HealthController {
 
     @Autowired
     private HealthDVConverter converter;
+
+    @RequestMapping(value = "/query", method = RequestMethod.GET)
+    public WebResponse<List<HealthDataVO>> query(){
+        List<HealthDataDTO> healthDataDTOS = healthService.queryAll();
+        return WebResponse.success(converter.toTargetList(healthDataDTOS));
+    }
 
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
     public WebResponse<Page<HealthDataVO>> queryPage(@RequestBody(required = false) AmqpQuery amqpQuery){

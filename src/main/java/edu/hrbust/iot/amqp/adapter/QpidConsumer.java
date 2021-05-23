@@ -65,14 +65,13 @@ public class QpidConsumer {
     }
 
 
-    @Scheduled(fixedDelay = 300000)
+//    @Scheduled(fixedDelay = 300000)
     public void receiveHealthData() {
         log.info("[定时任务开始], {}", LocalDateTime.now());
         List<AmqpHealth> healthData = qpidJmsTemplate.receiveAndConvertToJson(AmqpHealth.class);
         log.info("共接收到 [{}] 条消息", healthData.size());
 
         if (!healthData.isEmpty()) {
-//            bears.forEach(b->log.info("bear:{}", b));
             log.info("[准备入库], {}, 入库信息为: {}",LocalDateTime.now(), healthData);
             healthData.forEach(this::save);
             log.info("[已入库，定时任务结束], {} ", LocalDateTime.now());
