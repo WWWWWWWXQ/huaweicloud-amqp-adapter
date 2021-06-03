@@ -1,5 +1,6 @@
 package edu.hrbust.iot.amqp.adapter.entity.heart;
 
+import edu.hrbust.iot.amqp.adapter.entity.common.Body;
 import edu.hrbust.iot.amqp.adapter.entity.common.Header;
 import edu.hrbust.iot.amqp.adapter.entity.common.Services;
 import edu.hrbust.iot.amqp.web.entity.heart.HealthDataDTO;
@@ -18,7 +19,8 @@ public class AmqpMsgHeartConverter {
         dto.setGatewayId(header.getGatewayId());
 
         //build body
-        Services<HealthProperties> services =  healthData.getNotifyData().getBody().getServices().get(0);
+        Body<HealthProperties> body = healthData.getNotifyData().getBody();
+        Services<HealthProperties> services =  body.getServices().get(0);
         dto.setServiceId(services.getServiceId());
         HealthProperties healthProperties = services.getProperties();
 
