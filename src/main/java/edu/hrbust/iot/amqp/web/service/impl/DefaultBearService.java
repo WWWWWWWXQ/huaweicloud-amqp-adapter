@@ -1,13 +1,13 @@
 package edu.hrbust.iot.amqp.web.service.impl;
 
 //import edu.hrbust.iot.amqp.adapter.QpidJmsTemplate;
-import edu.hrbust.iot.amqp.web.dao.AmqpAdapterRepository;
+import edu.hrbust.iot.amqp.web.dao.BearRecordRepository;
 import edu.hrbust.iot.amqp.web.entity.AmqpQuery;
 import edu.hrbust.iot.amqp.web.utils.common.page.PageDTO;
-import edu.hrbust.iot.amqp.web.utils.converter.AmqpConverter;
-import edu.hrbust.iot.amqp.web.entity.AmqpRecordDTO;
-import edu.hrbust.iot.amqp.web.entity.AmqpRecord;
-import edu.hrbust.iot.amqp.web.service.AmqpAdapterService;
+import edu.hrbust.iot.amqp.web.utils.converter.BearPDConverter;
+import edu.hrbust.iot.amqp.web.entity.bear.BearRecordDTO;
+import edu.hrbust.iot.amqp.web.entity.bear.BearRecord;
+import edu.hrbust.iot.amqp.web.service.BearService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,42 +24,43 @@ import java.util.function.Predicate;
 
 @Slf4j
 @Service
-public class DefaultAmqpAdapterService implements AmqpAdapterService {
+public class DefaultBearService implements BearService {
 
     @Autowired
-    private AmqpAdapterRepository amqpAdapterRepository;
+    private BearRecordRepository repository;
 
     @Autowired
-    private AmqpConverter amqpConverter;
+    private BearPDConverter bearConverter;
 
     @Override
-    public List<AmqpRecordDTO> queryAll() {
-        List<AmqpRecord> amqpRecords = amqpAdapterRepository.findAll();
+    public List<BearRecordDTO> queryAll() {
+        List<BearRecord> amqpRecords = repository.findAll();
         log.info("{},amqpRecords:{}", LocalDateTime.now(), amqpRecords);
         if (amqpRecords.isEmpty()){
             return Collections.emptyList();
         }
-        return amqpConverter.toTargetList(amqpRecords);
+        return bearConverter.toTargetList(amqpRecords);
     }
 
     @Override
-    public PageDTO<AmqpRecordDTO> queryPage(AmqpQuery amqpQuery) {
-        PageDTO<AmqpRecordDTO> res = PageDTO.emptyPage();
+    public PageDTO<BearRecordDTO> queryPage(AmqpQuery amqpQuery) {
+        PageDTO<BearRecordDTO> res = PageDTO.emptyPage();
 
-        Specification<AmqpRecord> queryCondition = buildSpecification(amqpQuery);
+        Specification<BearRecord> queryCondition = buildSpecification(amqpQuery);
         PageRequest pageRequest = PageRequest.of(amqpQuery.getIndex()-1, amqpQuery.getPageSize());
         log.info("{}, index:{}, pageSize:{}", LocalDateTime.now(), amqpQuery.getIndex(), amqpQuery.getPageSize());
 
-        Page<AmqpRecord> amqpRecordPage = amqpAdapterRepository.findAll(queryCondition, pageRequest);
+        Page<BearRecord> amqpRecordPage = repository.findAll(queryCondition, pageRequest);
         res.setTotalPage(amqpRecordPage.getTotalPages());
         res.setTotal(amqpRecordPage.getTotalElements());
-        res.setData(amqpConverter.toTargetList(amqpRecordPage.getContent()));
+        res.setData(bearConverter.toTargetList(amqpRecordPage.getContent()));
 
 //        log.info("{},page:{}", LocalDateTime.now(), res);
         return res;
     }
 
-    private Specification<AmqpRecord> buildSpecification(AmqpQuery amqpQuery) {
+
+    private Specification<BearRecord> buildSpecification(AmqpQuery amqpQuery) {
         return (root, criteriaQuery, criteriaBuilder) ->{
             List<Predicate> predicateList = new ArrayList<>();
             return criteriaBuilder.and(predicateList.toArray(new javax.persistence.criteria.Predicate[0]));
@@ -67,11 +68,11 @@ public class DefaultAmqpAdapterService implements AmqpAdapterService {
     }
 
     @Override
-    public void save(AmqpRecordDTO record){
+    public void save(BearRecordDTO record){
         if (record.getUserName() == null) record.setUserName("吴肖琪");
         record.setId(null);
         record.setCreatedTime(new Date());
-        amqpAdapterRepository.save(amqpConverter.toSource(record));
+        repository.save(bearConverter.toSource(record));
     }
 
 

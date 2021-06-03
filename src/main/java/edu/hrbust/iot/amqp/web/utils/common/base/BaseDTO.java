@@ -11,5 +11,5 @@ public class BaseDTO implements Serializable {
     protected Long id;
 
     protected Date createdTime;
-    protected String userName;
+
 }

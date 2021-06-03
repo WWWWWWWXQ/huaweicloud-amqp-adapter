@@ -17,8 +17,6 @@ public class BasePO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-
-    protected String userName;
     protected Date createdTime;
 
 }

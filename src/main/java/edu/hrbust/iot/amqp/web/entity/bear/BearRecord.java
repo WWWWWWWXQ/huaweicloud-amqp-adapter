@@ -1,15 +1,16 @@
-package edu.hrbust.iot.amqp.web.entity;
+package edu.hrbust.iot.amqp.web.entity.bear;
 
-import edu.hrbust.iot.amqp.adapter.entity.Properties;
 import edu.hrbust.iot.amqp.web.utils.common.base.BasePO;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Data
 @Entity
-public class AmqpRecord extends BasePO {
+@Table(name = "bear_record")
+public class BearRecord extends BasePO {
 
     /**
      * header
@@ -29,4 +30,6 @@ public class AmqpRecord extends BasePO {
     private int newinttest;
     private String newstr;
     private Date eventTime;
+
+    private String userName;
 }

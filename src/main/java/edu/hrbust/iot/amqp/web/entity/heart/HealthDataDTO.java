@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.web.entity;
+package edu.hrbust.iot.amqp.web.entity.heart;
 
 import edu.hrbust.iot.amqp.web.utils.common.base.BaseDTO;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AmqpRecordDTO extends BaseDTO {
+public class HealthDataDTO extends BaseDTO {
     /**
      * header
      */
@@ -25,8 +25,13 @@ public class AmqpRecordDTO extends BaseDTO {
      * body.services
      */
     private String serviceId;
-    private int luminance;
-    private int newinttest;
-    private String newstr;
+    private String uid;
+    private String startTime;
+    private String endTime;
+    private int maxHeartRate;
+    private int minHeartRate;
+    private int averHeartRate;
+    private String startDate;
+    private String endDate;
     private Date eventTime;
 }
