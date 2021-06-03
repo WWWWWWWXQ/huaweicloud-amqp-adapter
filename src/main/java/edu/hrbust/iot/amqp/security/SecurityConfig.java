@@ -17,6 +17,10 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+/**
+ * Spring Security
+ * 核心配置类
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,13 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private String logoutUrl;
 
     private final UserDetailsService userDetailsService;
-
     private final AuthenticationSuccessHandler successHandler;
-
     private final AuthenticationFailureHandler failureHandler;
-
     private final AuthenticationEntryPoint entryPoint;
-
     private final LogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
@@ -55,15 +55,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * 配置Spring Security 使用的自定义处理类和密码转码工具类
+     * @param auth 认证工具对象
+     * @throws Exception Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(createPasswordEncoder());
     }
 
+    /**
+     * 配置Spring Security 的安全性需求
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().disable()
                 .authorizeRequests()
                 // 对登录注册要允许匿名访问;

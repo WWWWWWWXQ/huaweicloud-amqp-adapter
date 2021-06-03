@@ -12,14 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Spring Security
+ * 登出成功处理类
+ */
 @Slf4j
 @Component("logoutSuccessHandler")
 public class DefaultLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        WebResponse<String> res = WebResponse.success("注销成功");
+        log.info("登出成功");
+        WebResponse<String> res = WebResponse.success("登出成功");
         response.setContentType("application/json;charset=utf-8");
         response.getWriter().write(new ObjectMapper().writeValueAsString(res));
-        log.info("注销成功");
     }
 }

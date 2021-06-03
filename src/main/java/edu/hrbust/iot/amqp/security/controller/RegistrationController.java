@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 
-@CrossOrigin
+/**
+ * 注册页面
+ */
 @Slf4j
+@CrossOrigin
 @RestController
 @RequestMapping("/register")
 public class RegistrationController {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public RegistrationController(UserRepository userRepository, PasswordEncoder passwordEncoder){
@@ -39,3 +42,4 @@ public class RegistrationController {
 
 
 }
+

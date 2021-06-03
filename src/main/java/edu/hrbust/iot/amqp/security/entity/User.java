@@ -14,6 +14,10 @@ import javax.persistence.Id;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * Spring Security
+ * 实体类
+ */
 @Data
 @Entity(name = "user")
 @NoArgsConstructor

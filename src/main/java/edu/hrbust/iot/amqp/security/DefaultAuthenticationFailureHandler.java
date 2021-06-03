@@ -12,14 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Spring Security
+ * 认证失败处理类
+ */
 @Slf4j
 @Component("failureHandler")
 public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+        log.error("[登陆失败]用户名、密码或验证码错误");
         WebResponse<String> response = WebResponse.error("请检查用户名、密码或验证码是否正确");
         httpServletResponse.setContentType("application/json;charset=utf-8");
         httpServletResponse.getWriter().write(new ObjectMapper().writeValueAsString(response));
-        log.error("[登陆失败]用户名、密码或验证码错误");
     }
 }

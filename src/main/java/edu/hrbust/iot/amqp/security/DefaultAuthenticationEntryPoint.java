@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Spring Security 登陆页面入口
+ * 配置Spring Security 登陆页面入口
  */
 @Slf4j
 @Component("entryPoint")

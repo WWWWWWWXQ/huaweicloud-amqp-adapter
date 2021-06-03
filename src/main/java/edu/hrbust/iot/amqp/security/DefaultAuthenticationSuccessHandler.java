@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Spring Security
+ * 认证成功处理类
+ */
 @Slf4j
 @Component("successHandler")
 public class DefaultAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 登陆页面
+ */
 @Slf4j
 @CrossOrigin
 @RestController
@@ -20,13 +23,6 @@ public class AuthController {
 
     @Autowired
     private UserDetailsService userDetailsService;
-
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public WebResponse<String> login(){
-//
-//
-//        return WebResponse.success("success");
-//    }
 
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public WebResponse<Map<?,?>> info(){
