@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.security;
+package edu.hrbust.iot.amqp.security.config;
 
 import edu.hrbust.iot.amqp.security.dao.UserRepository;
 import edu.hrbust.iot.amqp.security.entity.User;

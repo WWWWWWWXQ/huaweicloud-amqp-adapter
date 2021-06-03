@@ -7,6 +7,7 @@ import java.util.Objects;
 @Data
 public class WebResponse<T> {
     public static final int SUCCESS_CODE = 20000;
+    public static final int LOGIN_SUCCESS_CODE=20001;
     public static final int ERROR_CODE = 1;
     public static final int ERROR_RETRY_CODE = 2;
 

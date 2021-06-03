@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.security;
+package edu.hrbust.iot.amqp.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.hrbust.iot.amqp.web.utils.common.WebResponse;
