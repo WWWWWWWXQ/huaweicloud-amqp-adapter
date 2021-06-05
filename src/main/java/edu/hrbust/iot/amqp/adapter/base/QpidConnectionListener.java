@@ -23,6 +23,7 @@ public class QpidConnectionListener implements JmsConnectionListener {
     }
 
 
+
     /**
      * 尝试过最大重试次数之后，最终连接失败。
      */
