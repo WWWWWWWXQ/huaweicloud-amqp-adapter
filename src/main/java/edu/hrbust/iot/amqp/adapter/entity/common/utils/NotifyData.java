@@ -1,7 +1,5 @@
-package edu.hrbust.iot.amqp.adapter.entity.common;
+package edu.hrbust.iot.amqp.adapter.entity.common.utils;
 
-import edu.hrbust.iot.amqp.adapter.entity.common.Body;
-import edu.hrbust.iot.amqp.adapter.entity.common.Header;
 import edu.hrbust.iot.amqp.adapter.entity.common.Properties;
 import lombok.Data;
 

@@ -1,25 +1,20 @@
 package edu.hrbust.iot.amqp.web;
 
 import edu.hrbust.iot.amqp.HuaWeiCloudAmqpAdapterApplication;
-import edu.hrbust.iot.amqp.adapter.QpidJmsTemplate;
-import edu.hrbust.iot.amqp.adapter.QpidConsumer;
+import edu.hrbust.iot.amqp.adapter.consumer.QpidJmsTemplate;
+import edu.hrbust.iot.amqp.adapter.consumer.HealthConsumer;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 @SpringBootTest(classes = HuaWeiCloudAmqpAdapterApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 class HuaweiCloudAmqpAdapterApplicationTests {
 
-    @Resource
-    QpidConsumer qpidConsumer;
-
-    @Resource
-    QpidJmsTemplate qpidJmsTemplate;
+    @Autowired
+    HealthConsumer qpidConsumer;
 
     @Test
     public void pureStringTest(){
