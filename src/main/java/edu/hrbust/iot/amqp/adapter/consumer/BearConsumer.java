@@ -1,6 +1,5 @@
 package edu.hrbust.iot.amqp.adapter.consumer;
 
-import edu.hrbust.iot.amqp.adapter.base.QpidConsumer;
 import edu.hrbust.iot.amqp.adapter.entity.bear.BearAmqpMsg;
 import edu.hrbust.iot.amqp.adapter.entity.bear.BearAmqpMsgConverter;
 import edu.hrbust.iot.amqp.web.entity.bear.BearRecordDTO;

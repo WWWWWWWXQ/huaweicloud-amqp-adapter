@@ -1,6 +1,5 @@
 package edu.hrbust.iot.amqp.adapter.consumer;
 
-import edu.hrbust.iot.amqp.adapter.base.QpidConsumer;
 import edu.hrbust.iot.amqp.adapter.entity.heart.HealthAmqpMsgConverter;
 import edu.hrbust.iot.amqp.adapter.entity.heart.HealthAmqpMsg;
 import edu.hrbust.iot.amqp.web.entity.heart.HealthDataDTO;
@@ -30,7 +29,7 @@ public class HealthConsumer extends QpidConsumer {
         heartHealthService.save(healthDataDTO);
     }
 
-    //    @Scheduled(fixedDelay = 300000)
+//    @Scheduled(fixedDelay = 300000)
     public void receiveHealthData() {
         log.info("[定时任务开始], {}", LocalDateTime.now());
         List<HealthAmqpMsg> healthData = qpidJmsTemplate.receiveAndConvertToJson(HealthAmqpMsg.class);

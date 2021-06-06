@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.adapter.base;
+package edu.hrbust.iot.amqp.adapter.consumer;
 
 import edu.hrbust.iot.amqp.adapter.consumer.QpidJmsTemplate;
 import edu.hrbust.iot.amqp.adapter.entity.common.BaseMessageTemplate;

@@ -13,8 +13,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Qpid 模版工具类
- * 封装核心类 AmqpAdapter
+ * Qpid 模版工具类, 封装了核心类 {@link AmqpAdapter} 并提供以下方法:
+ *
+ * <pre>{@code
+ * 1. receive(), 返回原始数据列表List<Message>
+ * 2. receiveAndConvertToJson(Class<T> targetClass), 返回指定类型列表List<T>
+ *
+ * }</pre>
  *
  * @author WWWWWWWXQ
  */
