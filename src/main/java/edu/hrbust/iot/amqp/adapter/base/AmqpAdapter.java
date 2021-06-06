@@ -7,11 +7,11 @@ import org.apache.qpid.jms.transports.TransportOptions;
 import org.apache.qpid.jms.transports.TransportSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -47,6 +47,7 @@ public class AmqpAdapter {
                 TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(5000));
 
+    @Transactional
     public List<Message> receiveMessageList(long timeOut){
         try {
             return receive(timeOut);
@@ -56,6 +57,7 @@ public class AmqpAdapter {
         return Collections.emptyList();
     }
 
+    @Transactional
     public List<Message> receiveMessageList(){
         try {
             return receive(0);
@@ -97,7 +99,7 @@ public class AmqpAdapter {
         ((JmsConnection) connection).addConnectionListener(qpidConnectionListener);
 
         // 创建AMQP Message 接收对象
-        // 采用线程安全集合 CopyOnWriteArrayList 进行高并发情况下的结果接收
+        // 采用线程安全集合 CopyOnWriteArrayList 进行高并发情况下的消息接收
         List<Message> messages = new CopyOnWriteArrayList<>();
         try {
             // 创建 Session
@@ -105,15 +107,15 @@ public class AmqpAdapter {
             // Session.AUTO_ACKNOWLEDGE: SDK自动ACK（推荐）。
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             connection.start();
-            // 创建 Receiver Link
+            // 创建 Receiver Link，准备接收消息
             MessageConsumer consumer = session.createConsumer(queue);
             try {
                 // 开始接受消息
-                // 接收时会一直占用连接直到持续 `timeOut` 时间仍未接收到消息
+                // 接收时会一直占用连接，直到持续 ${timeOut} 时间仍未接收到消息
                 log.info("[开始接收消息], Time:{},", LocalDateTime.now());
                 Message message = consumer.receive(timeOut);
                 while (message != null) {
-                    poccess(message, messages);
+                    process(message, messages);
                     message = consumer.receive(timeOut);
                 }
             } catch (Exception e) {
@@ -139,7 +141,7 @@ public class AmqpAdapter {
      * @param message jms.Message
      * @param list java.util.List
      */
-    private void poccess(Message message, List<Message> list) {
+    private void process(Message message, List<Message> list) {
         executorService.submit(()->{
             list.add(message);
         });

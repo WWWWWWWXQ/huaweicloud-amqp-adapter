@@ -1,6 +1,5 @@
 package edu.hrbust.iot.amqp.web.service.impl;
 
-//import edu.hrbust.iot.amqp.adapter.QpidJmsTemplate;
 import edu.hrbust.iot.amqp.web.dao.BearRecordRepository;
 import edu.hrbust.iot.amqp.web.entity.AmqpQuery;
 import edu.hrbust.iot.amqp.web.utils.common.page.PageDTO;
@@ -55,7 +54,7 @@ public class DefaultBearService implements BearService {
         res.setTotal(amqpRecordPage.getTotalElements());
         res.setData(bearConverter.toTargetList(amqpRecordPage.getContent()));
 
-//        log.info("{},page:{}", LocalDateTime.now(), res);
+        log.debug("{},page:{}", LocalDateTime.now(), res);
         return res;
     }
 
