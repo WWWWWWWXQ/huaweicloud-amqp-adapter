@@ -14,58 +14,49 @@ import java.net.URI;
 @Component
 public class QpidConnectionListener implements JmsConnectionListener {
 
-    /**
-     * 连接成功建立。
-     */
+    /** 连接成功建立 */
     @Override
     public void onConnectionEstablished(URI remoteURI){
         log.info("连接建立: {}", remoteURI );
     }
 
 
-
-    /**
-     * 尝试过最大重试次数之后，最终连接失败。
-     */
+    /** 尝试过最大重试次数之后，最终连接失败 */
     @Override
     public void onConnectionFailure(Throwable error){
-        System.out.println("onConnectionFailure, " + error.getMessage());
+        log.error("onConnectionFailure:[{}]", error.getMessage());
     }
 
-    /**
-     * 连接中断。
-     */
+    /** 连接中断 */
     @Override
     public void onConnectionInterrupted(URI remoteURI){
-        System.out.println("onConnectionInterrupted, remoteUri:" + remoteURI);
+        log.error("onConnectionInterrupted, remoteUri:[{}]", remoteURI);
     }
 
-    /**
-     * 连接中断后又自动重连上。
-     */
+    /**  连接中断后又自动重连上 */
     @Override
     public void onConnectionRestored(URI remoteURI){
-        System.out.println("onConnectionRestored, remoteUri:" + remoteURI);
+        log.info("onConnectionRestored, remoteUri:[{}]", remoteURI);
     }
 
     @Override
     public void onInboundMessage(JmsInboundMessageDispatch envelope){
-//        log.info("接收到:[{}]", envelope );
+        log.debug("envelope:[{}]", envelope );
     }
 
     @Override
     public void onSessionClosed(Session session, Throwable cause){
-        System.out.println("onSessionClosed, session=" + session + ", cause =" + cause);
+        log.error("onSessionClosed, session:[{}], cause:[{}]", session, cause);
     }
 
     @Override
     public void onConsumerClosed(MessageConsumer consumer, Throwable cause){
-        System.out.println("MessageConsumer, consumer=" + consumer + ", cause =" + cause);
+        log.error("MessageConsumer, consumer:[{}], cause:[{}]", consumer, cause );
     }
 
     @Override
     public void onProducerClosed(MessageProducer producer, Throwable cause){
-        System.out.println("MessageProducer, producer=" + producer + ", cause =" + cause);
+        log.error("MessageProducer, producer:[{}], cause:[{}]", producer, cause);
     }
 
 }
