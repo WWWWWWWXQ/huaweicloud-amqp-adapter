@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.security.config;
+package edu.hrbust.iot.amqp.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

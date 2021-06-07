@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.security.config;
+package edu.hrbust.iot.amqp.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.hrbust.iot.amqp.web.utils.common.WebResponse;
@@ -22,7 +22,6 @@ public class DefaultAuthenticationSuccessHandler extends SimpleUrlAuthentication
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         WebResponse<String> response = WebResponse.success("登陆成功");
-        response.setCode(WebResponse.LOGIN_SUCCESS_CODE);
         httpServletResponse.setContentType("application/json;charset=utf-8");
         httpServletResponse.getWriter().write(new ObjectMapper().writeValueAsString(response));
         log.info("[{}]登陆成功", httpServletRequest.getParameter("username"));

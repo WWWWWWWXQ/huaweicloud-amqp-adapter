@@ -1,4 +1,4 @@
-package edu.hrbust.iot.amqp.security.config;
+package edu.hrbust.iot.amqp.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
